@@ -58,7 +58,7 @@ void GpsManager ::parse_gga_message(const char* data, Fw::StringBase& messageHea
 // Handler implementations for typed input ports
 // ----------------------------------------------------------------------
 
-void GpsManager ::dataIn_handler(FwIndexType portNum, Fw::Buffer& data, const ComCfg::FrameContext& _) {
+void GpsManager ::dataIn_handler(FwIndexType portNum, Fw::Buffer& data) {
     char messageTypeBuffer[5 + 1] = "?????"; // Header length - 1 ($) + null terminator
     Fw::ExternalString messageHeader(messageTypeBuffer, sizeof(messageTypeBuffer));
     // Offset type by 2 to skip BD, GB, GA, GP, and GL prefixes
@@ -78,7 +78,7 @@ void GpsManager ::dataIn_handler(FwIndexType portNum, Fw::Buffer& data, const Co
     }
 
     // Always return the data
-    this->dataReturnOut_out(portNum, data, _);
+    this->dataReturnOut_out(portNum, data);
 }
 
 }  // namespace NmeaGps

@@ -69,8 +69,8 @@ class GpsManager final : public GpsManagerComponentBase {
     //!
     //! Port to receive framed data, with optional context
     void dataIn_handler(FwIndexType portNum,  //!< The port number
-                        Fw::Buffer& data,     //!< Full message data
-                        const ComCfg::FrameContext& _) override;
+                        Fw::Buffer& data     //!< Full message data
+    ) override;
 };
 
 }  // namespace NmeaGps

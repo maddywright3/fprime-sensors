@@ -20,7 +20,7 @@ namespace NmeaGps {
 
     TEST_F(GpsManagerTester, WellFormedMessage) {
         Fw::Buffer data(reinterpret_cast<U8*>(GOOD_MESSAGE), sizeof(GOOD_MESSAGE));
-        this->invoke_to_dataIn(0, data, ComCfg::FrameContext());
+        this->invoke_to_dataIn(0, data);
         ASSERT_EVENTS_InvalidData_SIZE(0);
         ASSERT_EVENTS_MalformedMessage_SIZE(0);
         ASSERT_TLM_Reading_SIZE(1);
@@ -29,13 +29,13 @@ namespace NmeaGps {
         EXPECT_DOUBLE_EQ(GOOD_LATITUDE, sent.getlatitude());
         EXPECT_DOUBLE_EQ(GOOD_LONGITUDE, sent.getlongitude());
         ASSERT_from_dataReturnOut_SIZE(1);
-        ASSERT_EQ(data.getData(), this->fromPortHistory_dataReturnOut->at(0).data.getData());
+        ASSERT_EQ(data.getData(), this->fromPortHistory_dataReturnOut->at(0).fwBuffer.getData());
     }
 
 
     TEST_F(GpsManagerTester, FullWellFormedMessage) {
         Fw::Buffer data(reinterpret_cast<U8*>(FULL_MESSAGE), sizeof(FULL_MESSAGE));
-        this->invoke_to_dataIn(0, data, ComCfg::FrameContext());
+        this->invoke_to_dataIn(0, data);
         ASSERT_EVENTS_InvalidData_SIZE(0);
         ASSERT_EVENTS_MalformedMessage_SIZE(0);
         ASSERT_TLM_Reading_SIZE(1);
@@ -44,27 +44,27 @@ namespace NmeaGps {
         EXPECT_DOUBLE_EQ(GOOD_LATITUDE, sent.getlatitude());
         EXPECT_DOUBLE_EQ(GOOD_LONGITUDE, sent.getlongitude());
         ASSERT_from_dataReturnOut_SIZE(1);
-        ASSERT_EQ(data.getData(), this->fromPortHistory_dataReturnOut->at(0).data.getData());
+        ASSERT_EQ(data.getData(), this->fromPortHistory_dataReturnOut->at(0).fwBuffer.getData());
     }
 
     TEST_F(GpsManagerTester, IgnoredMessage) {
         Fw::Buffer data(reinterpret_cast<U8*>(IGNORED_MESSAGE), sizeof(IGNORED_MESSAGE));
-        this->invoke_to_dataIn(0, data, ComCfg::FrameContext());
+        this->invoke_to_dataIn(0, data);
         ASSERT_EVENTS_InvalidData_SIZE(0);
         ASSERT_EVENTS_MalformedMessage_SIZE(0);
         ASSERT_TLM_Reading_SIZE(0);
         ASSERT_from_dataReturnOut_SIZE(1);
-        ASSERT_EQ(data.getData(), this->fromPortHistory_dataReturnOut->at(0).data.getData());
+        ASSERT_EQ(data.getData(), this->fromPortHistory_dataReturnOut->at(0).fwBuffer.getData());
     }
 
     TEST_F(GpsManagerTester, BadMeessage) {
         Fw::Buffer data(reinterpret_cast<U8*>(BAD_MESSAGE), sizeof(BAD_MESSAGE));
-        this->invoke_to_dataIn(0, data, ComCfg::FrameContext());
+        this->invoke_to_dataIn(0, data);
         ASSERT_EVENTS_InvalidData_SIZE(0);
         ASSERT_EVENTS_MalformedMessage_SIZE(1);
         ASSERT_TLM_Reading_SIZE(0);
         ASSERT_from_dataReturnOut_SIZE(1);
-        ASSERT_EQ(data.getData(), this->fromPortHistory_dataReturnOut->at(0).data.getData());
+        ASSERT_EQ(data.getData(), this->fromPortHistory_dataReturnOut->at(0).fwBuffer.getData());
     }
 }
 

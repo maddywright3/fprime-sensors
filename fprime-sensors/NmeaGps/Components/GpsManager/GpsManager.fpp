@@ -16,10 +16,10 @@ module NmeaGps {
         ###############################################################################
 
         @ Port to receive framed data, with optional context
-        guarded input port dataIn: Svc.ComDataWithContext
+        guarded input port dataIn: Fw.BufferSend
 
         @ Port for returning ownership of received buffers to deframe
-        output port dataReturnOut: Svc.ComDataWithContext
+        output port dataReturnOut: Fw.BufferSend
 
         ###############################################################################
         # Standard AC Ports: Required for Channels, Events, Commands, and Parameters  #
