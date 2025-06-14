@@ -13,6 +13,8 @@ constexpr FwSizeType NMEA_MINIMUM_MESSAGE_LENGTH = 6 + 2 + 2; //!< Minimum size 
 
 class NmeaDetector final : public Svc::FrameDetector {
   public:
+    NmeaDetector() = default;
+    virtual ~NmeaDetector() = default;
 
     //! \brief detect if there is a NMEA message available within the circular buffer
     Svc::FrameDetector::Status detect(const Types::CircularBuffer& data, FwSizeType& size_out) const;

@@ -1,0 +1,3 @@
+namespace NmeaGps {
+    struct TopologyState {};
+}

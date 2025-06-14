@@ -11,6 +11,9 @@ module FprimeSensors {
         @ Port to receive comm like data
         sync input port commLikeIn: Svc.ComDataWithContext
 
+        @ Port to receive byte stream like data
+        sync input port byteStreamLikeIn: Drv.ByteStreamData
+
         @ Port for sending comm like data
         output port commLikeOut: Svc.ComDataWithContext
     }

@@ -41,6 +41,13 @@ class AccumulatorAdapter final : public AccumulatorAdapterComponentBase {
     void commLikeIn_handler(FwIndexType portNum,  //!< The port number
                             Fw::Buffer& data,
                             const ComCfg::FrameContext& context) override;
+
+    //! Handler implementation for byteStreamLikeIn
+    //!
+    //! Port to receive byte stream like data
+    void byteStreamLikeIn_handler(FwIndexType portNum,  //!< The port number
+                                  Fw::Buffer& buffer,
+                                  const Drv::ByteStreamStatus& status) override;
 };
 
 }  // namespace FprimeSensors
