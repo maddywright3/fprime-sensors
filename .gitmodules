@@ -4,3 +4,6 @@
 [submodule "lib/fprime-sensors"]
 	path = lib/fprime-sensors
 	url = https://github.com/fprime-community/fprime-sensors.git
+[submodule "fprime-sensors"]
+	path = fprime-sensors
+	url = https://github.com/fprime-community/fprime-sensors.git
