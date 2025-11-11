@@ -5,6 +5,7 @@
 // ======================================================================
 
 #include "PiCameraManager/PiCameraManager.hpp"
+#include <Os/FileSystem.hpp>
 #include <sys/stat.h>
 #include <unistd.h>
 #include <iostream>
@@ -194,7 +195,7 @@ bool PiCameraManager::captureImageWithSystemCommand(const std::string& filename,
         << " --width " << IMAGE_WIDTH // set image widfth
         << " --height " << IMAGE_HEIGHT // set image height
         << " --nopreview --timeout 1 2>/dev/null"; // no preview window, 1 second timeout, suppress errors (for cleaner logs)
-    
+
     // execute command and get return code
     // converts from string stream (like StringBuilder in Java) --> C++ string (cmd/str()) --> char array (.c_str() - like char[] to make a word)
     // this is because system() coommand needs to read char arrays
@@ -222,10 +223,11 @@ std::string PiCameraManager::generateImageFilename() {
 }
 
 U32 PiCameraManager::getFileSize(const std::string& filepath) {
-    // use stat() data type call to get the file information
-    struct stat stat_buf;
-    // stat() will return bite size on success, fills stat_buff with file details, will return 0 upon failure
-    return (stat(filepath.c_str(), &stat_buf) == 0) ? static_cast<U32>(stat_buf.st_size) : 0;
+    FwSizeType size = 0;
+    Os::FileSystem::Status status = Os::FileSystem::getFileSize(filepath.c_str(), size);
+        
+    // Return size if successful, otherwise return 0
+    return (status == Os::FileSystem::OP_OK) ? static_cast<U32>(size) : 0;
 }
 
 bool PiCameraManager::fileExists(const std::string& filepath) {
